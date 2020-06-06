@@ -1,16 +1,5 @@
 # match
-
-```
-$ stm32-toolchain st-info --probe
-Found 1 stlink programmers
- serial: 303637364646353335313535383738
-openocd: "\x30\x36\x37\x36\x46\x46\x35\x33\x35\x31\x35\x35\x38\x37\x38"
-  flash: 1.048.576 (pagesize: 16.384)
-   sram: 262144
- chipid: 0x0419
-  descr: F42x and F43x device
-```
-------    nucleo bord  --------------
+st-info getting from the nucleo bord
 ```
 $ stm32-toolchain st-info --probe
 Found 1 stlink programmers
@@ -21,7 +10,19 @@ openocd: "\x30\x36\x37\x36\x46\x46\x35\x33\x35\x31\x35\x35\x38\x37\x38"
  chipid: 0x0419
   descr: F42x and F43x device
 ```
-
+st-info from the match board connected through st-link from nucleo
+```
+$ stm32-toolchain st-info --probe
+Found 1 stlink programmers
+ serial: 303637364646353335313535383738
+openocd: "\x30\x36\x37\x36\x46\x46\x35\x33\x35\x31\x35\x35\x38\x37\x38"
+  flash: 1.048.576 (pagesize: 16.384)
+   sram: 262144
+ chipid: 0x0419
+  descr: F42x and F43x device
+```
+openocd from the match board connected through st-link from nucleo
+[http://openocd.org/getting-openocd/]
 
 ```bash
 $ openocd -f /usr/share/openocd/scripts/board/st_nucleo_f4.cfg
