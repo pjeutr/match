@@ -1,6 +1,6 @@
 # Match dev notes
+<img src="nucleo2match.jpg" alt="Nucleo connected to Match board" width="160px">
 
-![Nucleo connected to Match board](nucleo2match.jpg =160px)
 ### Run Match tests
 ```screen /dev/cu.usbmodem411 9600 ```	( mac)
 
@@ -10,7 +10,7 @@ Copy paste into console: Help
 
 Exit screen ctrl+a - K - y 
 
-### flash Match test firmware
+### Flash Match test firmware
 
 ```st-flash  --reset write match1.bin 0x8000000```
 
@@ -62,7 +62,7 @@ size: 27324
 ------
 ### OpenOCD
 OpenOCD from the Match board connected through st-link from Nucleo 
-[http://openocd.org/getting-openocd/]
+http://openocd.org/getting-openocd/
 
 ```
 $ openocd -f st_nucleo_f4.cfg
@@ -110,28 +110,30 @@ shutdown
 ### Buildroot
 https://buildroot.org
 
-In the buildroot directory are the resulting binaries from a linux build that I hoped would work.
+In the buildroot directory are the resulting binaries from a linux build that I hoped would work.<br/>
 They can be flashed to Match by using the flash script.sh, which uses OpenOCD
 ```
  ./flash.sh 
 ```
 
-At https://github.com/pjeutr/buildroot I cloned the buildroot repository which I used for the build.
-By using stm32f429-disco which I expect to be almost the same as Match and adding the network connection.
-This is how a build can be made. I tried several options in menuconfig, but haven't found a working solution yet.
+At https://github.com/pjeutr/buildroot I cloned the buildroot repository which I used for the build. <br/>
+By using stm32f429-disco which I expect to be almost the same as Match and adding the network connection. <br/>
+This is how a build can be made. I tried several options in menuconfig, but haven't found a working solution yet. <br/>
 ```
 cp ./configs/stm32f429_disco_defconfig .config
 make menuconfig (optional, but here you can configure hardware options)
 make (this wil take several minutes)
 ```
-Flash buildroot
+Flash buildroot to Match
 ```
 board/stmicroelectronics/stm32f429-disco/flash.sh output/ stm32f429disc1
 ```
 ------
 ### Zephyr
 Obsolete now
+
 Zephyr is used to test gdb on the Nucleo, easy to make a quick test build.
+
 https://docs.zephyrproject.org/latest/boards/arm/nucleo_f429zi/doc/index.html
 
 
