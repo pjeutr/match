@@ -64,6 +64,11 @@ size: 27324
 OpenOCD from the Match board connected through st-link from Nucleo 
 http://openocd.org/getting-openocd/
 
+match.cfg is an flattend config with some debug additions
+```
+$ openocd -f match.cfg
+```
+st_nucleo_f4.cfg is the origanal config from openocd
 ```
 $ openocd -f st_nucleo_f4.cfg
 Open On-Chip Debugger 0.10.0
