@@ -134,6 +134,16 @@ Flash buildroot to Match
 board/stmicroelectronics/stm32f429-disco/flash.sh output/ stm32f429disc1
 ```
 ------
+### Testing with Qemu
+To test software without a board, we can use qemu.
+```
+make qemu_arm_versatile_nommu_defconfig
+make menuconfig
+make
+
+qemu-system-arm -M versatilepb -kernel output/images/zImage -dtb output/images/versatile-pb.dtb -append "console=ttyAMA0,115200" -serial stdio -net user -net nic,model=smc91c111 
+```
+------
 ### Zephyr
 Obsolete now
 
