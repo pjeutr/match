@@ -145,11 +145,52 @@ qemu-system-arm -M versatilepb -kernel output/images/zImage -dtb output/images/v
 ```
 ------
 ### Zephyr
-Obsolete now
-
-Zephyr is used to test gdb on the Nucleo, easy to make a quick test build.
-
+To test on zephyr, I took the Nucleo f429 config and changed somethings for Match 
 https://docs.zephyrproject.org/latest/boards/arm/nucleo_f429zi/doc/index.html
+
+Changes made for now are 
+match.dts:green_led_1
+```
+gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>; //running led
+```
+match_defconfig
+```
+CONFIG_CLOCK_STM32_HSE_CLOCK=24000000
+CONFIG_CLOCK_STM32_HSE_BYPASS=n
+CONFIG_CLOCK_STM32_PLL_M_DIVISOR=24
+```
+
+The Match board config is here in the zephyr dir and can be called like this.
+With this config the blinky demo should work
+```
+west build -p auto -b match -- -DBOARD_ROOT=~/match/zephyr/match  samples/basic/blinky
+west flash
+```
+
+Testing network failed
+First we must activate the network, I added following code to socket_dumb_http.c
+
+```
+	//activate ethernet, led2 was set to the right adress in match.dts (PA6)
+	struct device *dev;
+	dev = device_get_binding(DT_ALIAS_LED2_GPIOS_CONTROLLER);
+	ret = gpio_pin_configure(dev, DT_ALIAS_LED2_GPIOS_PIN, GPIO_OUTPUT_ACTIVE | DT_ALIAS_LED2_GPIOS_FLAGS);
+	gpio_pin_set(dev, DT_ALIAS_LED2_GPIOS_PIN, 1);
+```
+
+```
+west build -p auto -b match -- -DBOARD_ROOT= ~/match/zephyr/match/  samples/net/sockets/dumb_http_server
+west flash
+```
+To connect gdb
+```
+west attach
+west debug
+```
+
+
+
+
 
 
 
